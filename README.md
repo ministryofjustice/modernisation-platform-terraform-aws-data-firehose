@@ -6,12 +6,12 @@
 
 ```hcl
 
-module "template" {
+module "example" {
 
-  source = "github.com/ministryofjustice/modernisation-platform-terraform-module-template"
-
-  tags             = local.tags
-  application_name = local.application_name
+  source                     = "github.com/ministryofjustice/modernisation-platform-terraform-aws-data-firehose"
+  cloudwatch_log_group_names = ["example-1", "example-2", "example-3"]
+  destination_bucket_arn     = aws_s3_bucket.example.arn
+  tags                       = local.tags
 
 }
 
