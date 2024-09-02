@@ -97,6 +97,6 @@ resource "aws_cloudwatch_log_subscription_filter" "cloudwatch-to-firehose" {
   destination_arn = aws_kinesis_firehose_delivery_stream.firehose-to-s3.arn
   filter_pattern  = var.cloudwatch_filter_pattern
   log_group_name  = each.key
-  name            = "firehose-delivery-${each.key}"
+  name            = "firehose-delivery-${each.key}-${random_id.name.hex}"
   role_arn        = aws_iam_role.cloudwatch-to-firehose.arn
 }

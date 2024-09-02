@@ -16,10 +16,11 @@ module "example" {
 }
 
 ```
-<!--- BEGIN_TF_DOCS --->
 
+This module creates an [AWS Data Stream](https://aws.amazon.com/kinesis/data-streams/) to be used by a set of AWS CloudWatch Log Groups.
+Data is streamed from the Log Groups to a target S3 bucket using a Cloudwatch Log Subscription Filter.
 
-<!--- END_TF_DOCS --->
+Included in this module are the necessary IAM policy documents and roles for these actions, as well as a KMS key to encrypt the Data Stream.
 
 ## Looking for issues?
 If you're looking to raise an issue with this module, please create a new issue in the [Modernisation Platform repository](https://github.com/ministryofjustice/modernisation-platform/issues).
