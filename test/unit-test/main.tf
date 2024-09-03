@@ -7,6 +7,7 @@ module "test" {
 
 resource "aws_s3_bucket" "test" {
   bucket_prefix = "test"
+  force_destroy = true
   tags          = local.tags
 }
 
