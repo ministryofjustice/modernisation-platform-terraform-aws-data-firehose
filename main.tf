@@ -5,7 +5,7 @@ resource "random_id" "name" {
 resource "aws_kms_key" "firehose" {
   # checkov:skip=CKV_AWS_7
   description             = "KMS key for Firehose delivery streams"
-  deletion_window_in_days = 0
+  deletion_window_in_days = 7
   policy                  = data.aws_iam_policy_document.firehose-key-policy.json
   tags                    = var.tags
 }
@@ -93,10 +93,10 @@ resource "aws_cloudwatch_log_group" "kinesis" {
 }
 
 resource "aws_cloudwatch_log_subscription_filter" "cloudwatch-to-firehose" {
-  for_each        = toset(var.cloudwatch_log_group_names)
+  count           = length(var.cloudwatch_log_group_names)
   destination_arn = aws_kinesis_firehose_delivery_stream.firehose-to-s3.arn
   filter_pattern  = var.cloudwatch_filter_pattern
-  log_group_name  = each.key
-  name            = "firehose-delivery-${each.key}-${random_id.name.hex}"
+  log_group_name  = element(var.cloudwatch_log_group_names, count.index)
+  name            = "firehose-delivery-${element(var.cloudwatch_log_group_names, count.index)}-${random_id.name.hex}"
   role_arn        = aws_iam_role.cloudwatch-to-firehose.arn
 }

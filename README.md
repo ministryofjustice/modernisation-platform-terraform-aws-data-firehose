@@ -79,7 +79,11 @@ No modules.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_data_stream"></a> [data\_stream](#output\_data\_stream) | n/a |
+| <a name="output_iam_roles"></a> [iam\_roles](#output\_iam\_roles) | n/a |
+| <a name="output_log_subscriptions"></a> [log\_subscriptions](#output\_log\_subscriptions) | n/a |
 <!-- END_TF_DOCS -->
 
 [Standards Link]: https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-report/modernisation-platform-terraform-module-template "Repo standards badge."
