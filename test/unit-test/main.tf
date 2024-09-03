@@ -1,6 +1,16 @@
+module "test" {
+  source                     = "../../"
+  cloudwatch_log_group_names = [aws_cloudwatch_log_group.test.name]
+  destination_bucket_arn     = aws_s3_bucket.test.arn
+  tags                       = local.tags
+}
 
-module "module_test" {
-  source           = "../../"
-  application_name = local.application_name
-  tags             = local.tags
+resource "aws_s3_bucket" "test" {
+  bucket_prefix = "test"
+  tags          = local.tags
+}
+
+resource "aws_cloudwatch_log_group" "test" {
+  name_prefix = "test"
+  tags        = local.tags
 }
