@@ -81,8 +81,11 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| <a name="output_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#output\_cloudwatch\_log\_group\_name) | n/a |
 | <a name="output_data_stream"></a> [data\_stream](#output\_data\_stream) | n/a |
+| <a name="output_firehose_server_side_encryption_key_arn"></a> [firehose\_server\_side\_encryption\_key\_arn](#output\_firehose\_server\_side\_encryption\_key\_arn) | n/a |
 | <a name="output_iam_roles"></a> [iam\_roles](#output\_iam\_roles) | n/a |
+| <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | n/a |
 | <a name="output_log_subscriptions"></a> [log\_subscriptions](#output\_log\_subscriptions) | n/a |
 <!-- END_TF_DOCS -->
 
