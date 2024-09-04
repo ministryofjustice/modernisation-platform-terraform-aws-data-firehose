@@ -36,9 +36,19 @@ vulnerabilities:
 
 misconfigurations:
   - id: AVD-GIT-0001
+  - id: AVD-AWS-0017
   - id: AVD-AWS-0031
   - id: AVD-AWS-0039
   - id: AVD-AWS-0057
+  - id: AVD-AWS-0065
+  - id: AVD-AWS-0086
+  - id: AVD-AWS-0087
+  - id: AVD-AWS-0088
+  - id: AVD-AWS-0090
+  - id: AVD-AWS-0091
+  - id: AVD-AWS-0093
+  - id: AVD-AWS-0094
+  - id: AVD-AWS-0132
 
 secrets:
 
