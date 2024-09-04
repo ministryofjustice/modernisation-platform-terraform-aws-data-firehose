@@ -50,7 +50,7 @@ misconfigurations:
   - id: AVD-AWS-0094
   - id: AVD-AWS-0132
     paths:
-      -  "/test/unit-test/main.tf"
+      - "/test/unit-test/main.tf"
 
 secrets:
 
