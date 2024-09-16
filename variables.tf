@@ -14,6 +14,12 @@ variable "cloudwatch_filter_pattern" {
   default     = ""
 }
 
+variable "s3_compression_format" {
+  type        = string
+  description = "Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default."
+  default     = "UNCOMPRESSED"
+}
+
 variable "tags" {
   type        = map(string)
   description = "Map of tags to be applied to resources."
