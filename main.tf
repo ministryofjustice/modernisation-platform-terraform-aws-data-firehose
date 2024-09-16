@@ -59,7 +59,7 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose-to-s3" {
     bucket_arn          = var.destination_bucket_arn
     buffering_size      = 64
     buffering_interval  = 60
-    compression_format  = "GZIP"
+    compression_format  = var.s3_compression_format
     role_arn            = aws_iam_role.firehose-to-s3.arn
     prefix              = "logs/!{timestamp:yyyy/MM/dd}/"
     error_output_prefix = "errors/!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/"
