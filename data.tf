@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "cloudwatch-logs-role-policy" {
       "firehose:PutRecordBatch"
     ]
     resources = [
-      aws_kinesis_firehose_delivery_stream.firehose-to-s3.arn
+      aws_kinesis_firehose_delivery_stream.firehose.arn
     ]
   }
 }
@@ -61,10 +61,12 @@ data "aws_iam_policy_document" "firehose-role-policy" {
       "s3:PutObject",
       "s3:PutObjectAcl"
     ]
-    resources = [
-      var.destination_bucket_arn,
-      "${var.destination_bucket_arn}/*"
-    ]
+    resources = concat(
+      [for arn in [var.destination_bucket_arn] : arn if arn != ""],
+      [for arn in [var.destination_bucket_arn] : "${arn}/*" if arn != ""],
+      [aws_s3_bucket.firehose-errors.arn,
+      "${aws_s3_bucket.firehose-errors.arn}/*"]
+    )
   }
   statement {
     sid    = "FirehoseUseKMS"
