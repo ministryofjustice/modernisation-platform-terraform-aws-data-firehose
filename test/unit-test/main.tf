@@ -9,7 +9,8 @@ module "test-s3" {
 module "test-http" {
   source                     = "../../"
   cloudwatch_log_group_names = [aws_cloudwatch_log_group.test.name]
-  destination_http_endpoint  = "https://test.xyz"
+  destination_http_endpoint  = "https://test.xyz/abc123"
+  http_access_key            = "123456"
   tags                       = local.tags
 }
 

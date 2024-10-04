@@ -17,12 +17,12 @@ resource "aws_kms_alias" "firehose" {
 
 resource "aws_iam_role" "firehose" {
   assume_role_policy = data.aws_iam_policy_document.firehose-trust-policy.json
-  name_prefix        = "firehose-"
+  name_prefix        = "firehose"
   tags               = var.tags
 }
 
 resource "aws_iam_policy" "firehose" {
-  name_prefix = "firehose-to-s3"
+  name_prefix = "firehose"
   policy      = data.aws_iam_policy_document.firehose-role-policy.json
   tags        = var.tags
 }
@@ -80,6 +80,7 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
   dynamic "http_endpoint_configuration" {
     for_each = var.destination_http_endpoint != "" ? [1] : []
     content {
+      access_key         = sensitive(var.http_access_key)
       buffering_size     = 1
       buffering_interval = 60
       name               = var.destination_http_endpoint

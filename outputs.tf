@@ -3,7 +3,7 @@ output "cloudwatch_log_group_name" {
 }
 
 output "data_stream" {
-  value = aws_kinesis_firehose_delivery_stream.firehose
+  value = aws_kinesis_firehose_delivery_stream.firehose.id
 }
 
 output "kms_key_arn" {

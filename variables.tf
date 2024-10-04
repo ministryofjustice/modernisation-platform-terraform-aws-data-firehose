@@ -21,6 +21,14 @@ variable "destination_http_endpoint" {
   default     = ""
 }
 
+# Temporary while I properly implement secrets_manager_configuration
+variable "http_access_key" {
+  type        = string
+  description = "Access key for HTTP Endpoint"
+  default     = ""
+  sensitive   = true
+}
+
 variable "s3_compression_format" {
   type        = string
   description = "Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default."
