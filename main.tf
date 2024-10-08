@@ -129,7 +129,6 @@ resource "aws_s3_bucket" "firehose-errors" {
   # checkov:skip=CKV_AWS_18:Access logging not required
   # checkov:skip=CKV_AWS_144:Replication not required
   # checkov:skip=CKV_AWS_145:Standard encryption fine
-  # checkov:skip=CKV2_AWS_6:Bucket is private by default
   # checkov:skip=CKV2_AWS_62:Notifications not necessary
   bucket_prefix = "firehose-errors"
   force_destroy = true
