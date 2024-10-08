@@ -118,15 +118,48 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
 }
 
 resource "aws_secretsmanager_secret" "firehose" {
+  # checkov:skip=CKV2_AWS_57
+  kms_key_id              = aws_kms_key.firehose.id
   name_prefix             = "cloudwatch-export-${random_id.name.hex}"
   recovery_window_in_days = 0
   tags                    = var.tags
 }
 
 resource "aws_s3_bucket" "firehose-errors" {
+  # checkov:skip=CKV_AWS_18:Access logging not required
+  # checkov:skip=CKV_AWS_144:Replication not required
+  # checkov:skip=CKV_AWS_145:Standard encryption fine
+  # checkov:skip=CKV2_AWS_6:Bucket is private by default
+  # checkov:skip=CKV2_AWS_62:Notifications not necessary
   bucket_prefix = "firehose-errors"
   force_destroy = true
   tags          = var.tags
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "firehose-errors" {
+  bucket   = aws_s3_bucket.firehose-errors.id
+
+  rule {
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+    id = "rule-1"
+    filter {}
+    expiration {
+      days = 14
+    }
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "firehose-errors" {
+  bucket   = aws_s3_bucket.firehose-errors.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
 }
 
 resource "aws_cloudwatch_log_group" "kinesis" {
