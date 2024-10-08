@@ -1,7 +1,16 @@
-module "test" {
+# Bucket ARN creation needs some manipulation as it doesn't exist at plan time
+module "test-s3" {
   source                     = "../../"
   cloudwatch_log_group_names = [aws_cloudwatch_log_group.test.name]
-  destination_bucket_arn     = aws_s3_bucket.test.arn
+  destination_bucket_arn     = "arn:aws:s3:::${aws_s3_bucket.test.id}"
+  tags                       = local.tags
+}
+
+module "test-http" {
+  source                     = "../../"
+  cloudwatch_log_group_names = [aws_cloudwatch_log_group.test.name]
+  destination_http_endpoint  = "https://test.xyz/abc123"
+  http_access_key            = "123456"
   tags                       = local.tags
 }
 

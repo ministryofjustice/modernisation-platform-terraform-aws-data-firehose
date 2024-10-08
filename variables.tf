@@ -1,3 +1,9 @@
+variable "cloudwatch_filter_pattern" {
+  type        = string
+  description = "A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events."
+  default     = ""
+}
+
 variable "cloudwatch_log_group_names" {
   type        = list(string)
   description = "List of CloudWatch Log Group names to stream logs from."
@@ -6,12 +12,21 @@ variable "cloudwatch_log_group_names" {
 variable "destination_bucket_arn" {
   type        = string
   description = "ARN of the bucket for CloudWatch filters."
+  default     = ""
 }
 
-variable "cloudwatch_filter_pattern" {
+variable "destination_http_endpoint" {
   type        = string
-  description = "A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events."
+  description = "HTTP endpoint for CloudWatch filters."
   default     = ""
+}
+
+# Temporary while I properly implement secrets_manager_configuration
+variable "http_access_key" {
+  type        = string
+  description = "Access key for HTTP Endpoint"
+  default     = ""
+  sensitive   = true
 }
 
 variable "s3_compression_format" {

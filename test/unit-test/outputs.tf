@@ -1,23 +1,31 @@
-output "cloudwatch_log_group_name" {
-  value = module.test.cloudwatch_log_group_name
+locals {
+  modules = {
+    "s3"   = module.test-s3
+    "http" = module.test-http
+  }
 }
 
+output "cloudwatch_log_group_name" {
+  value = { for key, value in local.modules : key => value.cloudwatch_log_group_name }
+}
+
+# Only the data_stream ID gets output to preserve the safety of sensitive values
 output "data_stream" {
-  value = module.test.data_stream
+  value = { for key, value in local.modules : key => value.data_stream }
 }
 
 output "iam_roles" {
-  value = module.test.iam_roles
+  value = { for key, value in local.modules : key => value.iam_roles }
 }
 
 output "log_subscriptions" {
-  value = module.test.log_subscriptions
+  value = { for key, value in local.modules : key => value.log_subscriptions }
 }
 
 output "kms_key_arn" {
-  value = module.test.kms_key_arn
+  value = { for key, value in local.modules : key => value.kms_key_arn }
 }
 
 output "firehose_server_side_encryption_key_arn" {
-  value = module.test.firehose_server_side_encryption_key_arn
+  value = { for key, value in local.modules : key => value.firehose_server_side_encryption_key_arn }
 }
