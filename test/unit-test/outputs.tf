@@ -29,3 +29,7 @@ output "kms_key_arn" {
 output "firehose_server_side_encryption_key_arn" {
   value = { for key, value in local.modules : key => value.firehose_server_side_encryption_key_arn }
 }
+
+output "secretsmanager_secret_arn" {
+  value = { for key, value in local.modules : key => value.secretsmanager_secret_arn}
+}

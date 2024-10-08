@@ -24,3 +24,7 @@ output "iam_roles" {
 output "firehose_server_side_encryption_key_arn" {
   value = aws_kinesis_firehose_delivery_stream.firehose.server_side_encryption[0].key_arn
 }
+
+output "secretsmanager_secret_arn" {
+  value = aws_secretsmanager_secret.firehose.arn
+}
