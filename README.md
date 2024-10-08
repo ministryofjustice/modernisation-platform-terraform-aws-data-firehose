@@ -6,19 +6,26 @@
 
 ```hcl
 
-module "example" {
-
+module "example-s3" {
   source                     = "github.com/ministryofjustice/modernisation-platform-terraform-aws-data-firehose"
   cloudwatch_log_group_names = ["example-1", "example-2", "example-3"]
   destination_bucket_arn     = aws_s3_bucket.example.arn
   tags                       = local.tags
+}
 
+module "example-http" {
+  source                     = "github.com/ministryofjustice/modernisation-platform-terraform-aws-data-firehose"
+  cloudwatch_log_group_names = ["example-1", "example-2", "example-3"]
+  destination_http_endpoint  = "https://example-url.com/endpoint"
+  tags                       = local.tags
 }
 
 ```
 
 This module creates an [AWS Data Stream](https://aws.amazon.com/kinesis/data-streams/) to be used by a set of AWS CloudWatch Log Groups.
-Data is streamed from the Log Groups to a target S3 bucket using a Cloudwatch Log Subscription Filter.
+Data is streamed from the Log Groups to either a target S3 bucket or HTTP endpoint using a Cloudwatch Log Subscription Filter.
+
+When a HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10 minute intervals for credentials.
 
 Included in this module are the necessary IAM policy documents and roles for these actions, as well as a KMS key to encrypt the Data Stream.
 

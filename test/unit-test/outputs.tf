@@ -14,22 +14,22 @@ output "data_stream" {
   value = { for key, value in local.modules : key => value.data_stream }
 }
 
-output "iam_roles" {
-  value = { for key, value in local.modules : key => value.iam_roles }
+output "firehose_server_side_encryption_key_arn" {
+  value = { for key, value in local.modules : key => value.firehose_server_side_encryption_key_arn }
 }
 
-output "log_subscriptions" {
-  value = { for key, value in local.modules : key => value.log_subscriptions }
+output "iam_roles" {
+  value = { for key, value in local.modules : key => value.iam_roles }
 }
 
 output "kms_key_arn" {
   value = { for key, value in local.modules : key => value.kms_key_arn }
 }
 
-output "firehose_server_side_encryption_key_arn" {
-  value = { for key, value in local.modules : key => value.firehose_server_side_encryption_key_arn }
+output "log_subscriptions" {
+  value = { for key, value in local.modules : key => value.log_subscriptions }
 }
 
 output "secretsmanager_secret_arn" {
-  value = { for key, value in local.modules : key => value.secretsmanager_secret_arn}
+  value = { for key, value in local.modules : key => value.secretsmanager_secret_arn }
 }

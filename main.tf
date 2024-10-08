@@ -101,8 +101,8 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
       }
 
       secrets_manager_configuration {
-        enabled = true
-        role_arn = aws_iam_role.firehose.arn
+        enabled    = true
+        role_arn   = aws_iam_role.firehose.arn
         secret_arn = aws_secretsmanager_secret.firehose.arn
       }
     }
@@ -118,9 +118,9 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
 }
 
 resource "aws_secretsmanager_secret" "firehose" {
-  name_prefix = "cloudwatch-export-${random_id.name.hex}"
+  name_prefix             = "cloudwatch-export-${random_id.name.hex}"
   recovery_window_in_days = 0
-  tags = var.tags
+  tags                    = var.tags
 }
 
 resource "aws_s3_bucket" "firehose-errors" {
