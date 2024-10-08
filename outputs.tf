@@ -6,12 +6,8 @@ output "data_stream" {
   value = aws_kinesis_firehose_delivery_stream.firehose.id
 }
 
-output "kms_key_arn" {
-  value = aws_kms_key.firehose.arn
-}
-
-output "log_subscriptions" {
-  value = aws_cloudwatch_log_subscription_filter.cloudwatch-to-firehose
+output "firehose_server_side_encryption_key_arn" {
+  value = aws_kinesis_firehose_delivery_stream.firehose.server_side_encryption[0].key_arn
 }
 
 output "iam_roles" {
@@ -21,6 +17,14 @@ output "iam_roles" {
   }
 }
 
-output "firehose_server_side_encryption_key_arn" {
-  value = aws_kinesis_firehose_delivery_stream.firehose.server_side_encryption[0].key_arn
+output "kms_key_arn" {
+  value = aws_kms_key.firehose.arn
+}
+
+output "log_subscriptions" {
+  value = aws_cloudwatch_log_subscription_filter.cloudwatch-to-firehose
+}
+
+output "secretsmanager_secret_arn" {
+  value = aws_secretsmanager_secret.firehose.arn
 }

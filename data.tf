@@ -91,6 +91,16 @@ data "aws_iam_policy_document" "firehose-role-policy" {
       "${aws_cloudwatch_log_group.kinesis.arn}:log-stream:DestinationDelivery"
     ]
   }
+  statement {
+    sid    = "FirehoseReadSecret"
+    effect = "Allow"
+    actions = [
+      "secretsmanager:GetSecretValue"
+    ]
+    resources = [
+      aws_secretsmanager_secret.firehose.arn
+    ]
+  }
 }
 
 data "aws_iam_policy_document" "firehose-key-policy" {

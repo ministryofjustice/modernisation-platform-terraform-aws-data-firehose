@@ -6,19 +6,26 @@
 
 ```hcl
 
-module "example" {
-
+module "example-s3" {
   source                     = "github.com/ministryofjustice/modernisation-platform-terraform-aws-data-firehose"
   cloudwatch_log_group_names = ["example-1", "example-2", "example-3"]
   destination_bucket_arn     = aws_s3_bucket.example.arn
   tags                       = local.tags
+}
 
+module "example-http" {
+  source                     = "github.com/ministryofjustice/modernisation-platform-terraform-aws-data-firehose"
+  cloudwatch_log_group_names = ["example-1", "example-2", "example-3"]
+  destination_http_endpoint  = "https://example-url.com/endpoint"
+  tags                       = local.tags
 }
 
 ```
 
 This module creates an [AWS Data Stream](https://aws.amazon.com/kinesis/data-streams/) to be used by a set of AWS CloudWatch Log Groups.
-Data is streamed from the Log Groups to a target S3 bucket using a Cloudwatch Log Subscription Filter.
+Data is streamed from the Log Groups to either a target S3 bucket or HTTP endpoint using a Cloudwatch Log Subscription Filter.
+
+When a HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10 minute intervals for credentials.
 
 Included in this module are the necessary IAM policy documents and roles for these actions, as well as a KMS key to encrypt the Data Stream.
 
@@ -38,8 +45,8 @@ If you're looking to raise an issue with this module, please create a new issue 
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 5.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | ~> 3.4 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.70.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.6.3 |
 
 ## Modules
 
@@ -61,6 +68,7 @@ No modules.
 | [aws_kms_alias.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
 | [aws_kms_key.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
 | [aws_s3_bucket.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_secretsmanager_secret.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [random_id.name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.cloudwatch-logs-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -77,7 +85,6 @@ No modules.
 | <a name="input_cloudwatch_log_group_names"></a> [cloudwatch\_log\_group\_names](#input\_cloudwatch\_log\_group\_names) | List of CloudWatch Log Group names to stream logs from. | `list(string)` | n/a | yes |
 | <a name="input_destination_bucket_arn"></a> [destination\_bucket\_arn](#input\_destination\_bucket\_arn) | ARN of the bucket for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_endpoint"></a> [destination\_http\_endpoint](#input\_destination\_http\_endpoint) | HTTP endpoint for CloudWatch filters. | `string` | `""` | no |
-| <a name="input_http_access_key"></a> [http\_access\_key](#input\_http\_access\_key) | Access key for HTTP Endpoint | `string` | `""` | no |
 | <a name="input_s3_compression_format"></a> [s3\_compression\_format](#input\_s3\_compression\_format) | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default. | `string` | `"UNCOMPRESSED"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to be applied to resources. | `map(string)` | n/a | yes |
 
@@ -91,6 +98,7 @@ No modules.
 | <a name="output_iam_roles"></a> [iam\_roles](#output\_iam\_roles) | n/a |
 | <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | n/a |
 | <a name="output_log_subscriptions"></a> [log\_subscriptions](#output\_log\_subscriptions) | n/a |
+| <a name="output_secretsmanager_secret_arn"></a> [secretsmanager\_secret\_arn](#output\_secretsmanager\_secret\_arn) | n/a |
 <!-- END_TF_DOCS -->
 
 [Standards Link]: https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-report/modernisation-platform-terraform-module-template "Repo standards badge."
