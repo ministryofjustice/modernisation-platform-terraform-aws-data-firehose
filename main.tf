@@ -129,7 +129,6 @@ resource "aws_s3_bucket" "firehose-errors" {
   # checkov:skip=CKV_AWS_18:Access logging not required
   # checkov:skip=CKV_AWS_144:Replication not required
   # checkov:skip=CKV_AWS_145:Standard encryption fine
-  # checkov:skip=CKV2_AWS_6:Bucket is private by default
   # checkov:skip=CKV2_AWS_62:Notifications not necessary
   bucket_prefix = "firehose-errors"
   force_destroy = true
@@ -150,6 +149,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "firehose-errors" {
     }
     status = "Enabled"
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "firehose-errors" {
+  bucket                  = aws_s3_bucket.firehose-errors.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "firehose-errors" {
