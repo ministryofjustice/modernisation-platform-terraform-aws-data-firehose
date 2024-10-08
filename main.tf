@@ -152,6 +152,14 @@ resource "aws_s3_bucket_lifecycle_configuration" "firehose-errors" {
   }
 }
 
+resource "aws_s3_bucket_public_access_block" "firehose-errors" {
+  bucket                  = aws_s3_bucket.firehose-errors.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "firehose-errors" {
   bucket   = aws_s3_bucket.firehose-errors.id
 
