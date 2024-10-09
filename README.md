@@ -27,6 +27,8 @@ Data is streamed from the Log Groups to either a target S3 bucket or HTTP endpoi
 
 When a HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10 minute intervals for credentials.
 
+The `aws_secretsmanager_secret` **value** must be populated independently of this module.
+
 Included in this module are the necessary IAM policy documents and roles for these actions, as well as a KMS key to encrypt the Data Stream.
 
 ## Looking for issues?
