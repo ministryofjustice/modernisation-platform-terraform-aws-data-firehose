@@ -2,6 +2,11 @@ resource "random_id" "name" {
   byte_length = 4
 }
 
+locals {
+  name_prefix = var.name != null ? "firehose-${var.name}" : "firehose"
+  name_unique = coalesce(var.name, random_id.name.hex)
+}
+
 resource "aws_kms_key" "firehose" {
   # checkov:skip=CKV_AWS_7
   description             = "KMS key for Firehose delivery streams"
@@ -11,18 +16,21 @@ resource "aws_kms_key" "firehose" {
 }
 
 resource "aws_kms_alias" "firehose" {
-  name_prefix   = "alias/firehose-log-delivery-${random_id.name.hex}"
+  name          = var.name != null ? "alias/firehose-${var.name}-log-delivery" : null
+  name_prefix   = var.name == null ? "alias/firehose-log-delivery-${random_id.name.hex}" : null
   target_key_id = aws_kms_key.firehose.id
 }
 
 resource "aws_iam_role" "firehose" {
   assume_role_policy = data.aws_iam_policy_document.firehose-trust-policy.json
-  name_prefix        = "firehose"
+  name               = var.name != null ? "firehose-${var.name}" : null
+  name_prefix        = var.name == null ? "firehose" : null
   tags               = var.tags
 }
 
 resource "aws_iam_policy" "firehose" {
-  name_prefix = "firehose"
+  name        = var.name != null ? "firehose-${var.name}" : null
+  name_prefix = var.name == null ? "firehose" : null
   policy      = data.aws_iam_policy_document.firehose-role-policy.json
   tags        = var.tags
 }
@@ -35,12 +43,14 @@ resource "aws_iam_policy_attachment" "firehose" {
 
 resource "aws_iam_role" "cloudwatch-to-firehose" {
   assume_role_policy = data.aws_iam_policy_document.cloudwatch-logs-trust-policy.json
-  name_prefix        = "cloudwatch-to-firehose"
+  name               = var.name != null ? "cloudwatch-to-firehose-${var.name}" : null
+  name_prefix        = var.name == null ? "cloudwatch-to-firehose" : null
   tags               = var.tags
 }
 
 resource "aws_iam_policy" "cloudwatch-to-firehose" {
-  name_prefix = "cloudwatch-to-firehose"
+  name        = var.name != null ? "cloudwatch-to-firehose-${var.name}" : null
+  name_prefix = var.name == null ? "cloudwatch-to-firehose" : null
   policy      = data.aws_iam_policy_document.cloudwatch-logs-role-policy.json
   tags        = var.tags
 }
@@ -53,7 +63,7 @@ resource "aws_iam_policy_attachment" "cloudwatch-to-firehose" {
 
 resource "aws_kinesis_firehose_delivery_stream" "firehose" {
   destination = length(var.destination_bucket_arn) > 0 ? "extended_s3" : "http_endpoint"
-  name        = "cloudwatch-export-${random_id.name.hex}"
+  name        = "cloudwatch-export-${local.name_unique}"
 
   dynamic "extended_s3_configuration" {
     for_each = var.destination_bucket_arn != "" ? [1] : []
@@ -119,8 +129,10 @@ resource "aws_kinesis_firehose_delivery_stream" "firehose" {
 
 resource "aws_secretsmanager_secret" "firehose" {
   # checkov:skip=CKV2_AWS_57
+  description             = "populate with http endpoint credentials, e.g. API key or username/password"
   kms_key_id              = aws_kms_key.firehose.id
-  name_prefix             = "cloudwatch-export-${random_id.name.hex}"
+  name                    = var.destination_http_secret_name
+  name_prefix             = var.destination_http_secret_name == null ? "cloudwatch-export-${local.name_unique}" : null
   recovery_window_in_days = 0
   tags                    = var.tags
 }
@@ -130,13 +142,13 @@ resource "aws_s3_bucket" "firehose-errors" {
   # checkov:skip=CKV_AWS_144:Replication not required
   # checkov:skip=CKV_AWS_145:Standard encryption fine
   # checkov:skip=CKV2_AWS_62:Notifications not necessary
-  bucket_prefix = "firehose-errors"
+  bucket_prefix = "${local.name_prefix}-errors"
   force_destroy = true
   tags          = var.tags
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "firehose-errors" {
-  bucket   = aws_s3_bucket.firehose-errors.id
+  bucket = aws_s3_bucket.firehose-errors.id
 
   rule {
     abort_incomplete_multipart_upload {
@@ -160,7 +172,7 @@ resource "aws_s3_bucket_public_access_block" "firehose-errors" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "firehose-errors" {
-  bucket   = aws_s3_bucket.firehose-errors.id
+  bucket = aws_s3_bucket.firehose-errors.id
 
   rule {
     apply_server_side_encryption_by_default {
@@ -172,7 +184,10 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "firehose-errors" 
 resource "aws_cloudwatch_log_group" "kinesis" {
   #  checkov:skip=CKV_AWS_338:Short life error logs don't need long term retention
   #  checkov:skip=CKV_AWS_158:Default log encryption OK for short life error logs
-  name              = "/aws/kinesisfirehose/cloudwatch-to-s3-${random_id.name.hex}"
+
+  name        = var.name != null ? "/aws/kinesisfirehose/cloudwatch-to-s3-${var.name}" : null
+  name_prefix = var.name == null ? "/aws/kinesisfirehose/cloudwatch-to-s3" : null
+
   retention_in_days = 14
   tags              = var.tags
 }
@@ -182,6 +197,6 @@ resource "aws_cloudwatch_log_subscription_filter" "cloudwatch-to-firehose" {
   destination_arn = aws_kinesis_firehose_delivery_stream.firehose.arn
   filter_pattern  = var.cloudwatch_filter_pattern
   log_group_name  = element(var.cloudwatch_log_group_names, count.index)
-  name            = "firehose-delivery-${element(var.cloudwatch_log_group_names, count.index)}-${random_id.name.hex}"
+  name            = "firehose-delivery-${element(var.cloudwatch_log_group_names, count.index)}-${local.name_unique}"
   role_arn        = aws_iam_role.cloudwatch-to-firehose.arn
 }
