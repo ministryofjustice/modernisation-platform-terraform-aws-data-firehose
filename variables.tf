@@ -21,6 +21,18 @@ variable "destination_http_endpoint" {
   default     = ""
 }
 
+variable "destination_http_secret_name" {
+  type        = string
+  description = "Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html"
+  default     = null
+}
+
+variable "name" {
+  type        = string
+  description = "Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog'"
+  default     = null
+}
+
 variable "s3_compression_format" {
   type        = string
   description = "Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default."
