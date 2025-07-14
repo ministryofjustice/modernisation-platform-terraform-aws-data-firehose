@@ -147,6 +147,13 @@ resource "aws_s3_bucket" "firehose-errors" {
   tags          = var.tags
 }
 
+resource "aws_s3_bucket_versioning" "firehose-errors" {
+  bucket = aws_s3_bucket.firehose-errors.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 resource "aws_s3_bucket_lifecycle_configuration" "firehose-errors" {
   bucket = aws_s3_bucket.firehose-errors.id
 
