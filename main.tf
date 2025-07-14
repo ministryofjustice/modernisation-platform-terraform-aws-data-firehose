@@ -144,10 +144,6 @@ resource "aws_s3_bucket" "firehose-errors" {
   # checkov:skip=CKV2_AWS_62:Notifications not necessary
   bucket_prefix = "${local.name_prefix}-errors"
   force_destroy = true
-  versioning_configuration {
-    status = "Enabled"
-    
-  }
   tags          = var.tags
 }
 
