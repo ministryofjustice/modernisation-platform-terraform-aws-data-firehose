@@ -40,21 +40,20 @@ Included in this module are the necessary IAM policy documents and roles for the
 If you're looking to raise an issue with this module, please create a new issue in the [Modernisation Platform repository](https://github.com/ministryofjustice/modernisation-platform/issues).
 
 <!-- BEGIN_TF_DOCS -->
-
 ## Requirements
 
-| Name                                                                     | Version |
-| ------------------------------------------------------------------------ | ------- |
-| <a name="requirement_terraform"></a> [terraform](#requirement_terraform) | ~> 1.0  |
-| <a name="requirement_aws"></a> [aws](#requirement_aws)                   | ~> 6.0  |
-| <a name="requirement_random"></a> [random](#requirement_random)          | ~> 3.4  |
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.4 |
 
 ## Providers
 
-| Name                                                      | Version |
-| --------------------------------------------------------- | ------- |
-| <a name="provider_aws"></a> [aws](#provider_aws)          | ~> 6.0  |
-| <a name="provider_random"></a> [random](#provider_random) | ~> 3.4  |
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 6.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | ~> 3.4 |
 
 ## Modules
 
@@ -62,58 +61,57 @@ No modules.
 
 ## Resources
 
-| Name                                                                                                                                                                                             | Type        |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| [aws_cloudwatch_log_group.kinesis](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)                                                             | resource    |
-| [aws_cloudwatch_log_subscription_filter.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_subscription_filter)                  | resource    |
-| [aws_iam_policy.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                                                  | resource    |
-| [aws_iam_policy.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy)                                                                                | resource    |
-| [aws_iam_policy_attachment.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment)                                            | resource    |
-| [aws_iam_policy_attachment.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment)                                                          | resource    |
-| [aws_iam_role.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                                                      | resource    |
-| [aws_iam_role.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                                                                    | resource    |
-| [aws_kinesis_firehose_delivery_stream.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_firehose_delivery_stream)                                    | resource    |
-| [aws_kms_alias.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias)                                                                                  | resource    |
-| [aws_kms_key.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key)                                                                                      | resource    |
-| [aws_s3_bucket.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket)                                                                           | resource    |
-| [aws_s3_bucket_lifecycle_configuration.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration)                           | resource    |
-| [aws_s3_bucket_public_access_block.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block)                                   | resource    |
-| [aws_s3_bucket_server_side_encryption_configuration.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource    |
-| [aws_s3_bucket_versioning.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning)                                                     | resource    |
-| [aws_secretsmanager_secret.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret)                                                          | resource    |
-| [random_id.name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id)                                                                                              | resource    |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity)                                                                    | data source |
-| [aws_iam_policy_document.cloudwatch-logs-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                                        | data source |
-| [aws_iam_policy_document.cloudwatch-logs-trust-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                                       | data source |
-| [aws_iam_policy_document.firehose-key-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                                                | data source |
-| [aws_iam_policy_document.firehose-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                                               | data source |
-| [aws_iam_policy_document.firehose-trust-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document)                                              | data source |
+| Name | Type |
+|------|------|
+| [aws_cloudwatch_log_group.kinesis](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
+| [aws_cloudwatch_log_subscription_filter.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_subscription_filter) | resource |
+| [aws_iam_policy.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy_attachment.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
+| [aws_iam_policy_attachment.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) | resource |
+| [aws_iam_role.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_kinesis_firehose_delivery_stream.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_firehose_delivery_stream) | resource |
+| [aws_kms_alias.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_alias) | resource |
+| [aws_kms_key.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kms_key) | resource |
+| [aws_s3_bucket.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_lifecycle_configuration.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_public_access_block.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.firehose-errors](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning) | resource |
+| [aws_secretsmanager_secret.firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [random_id.name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.cloudwatch-logs-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.cloudwatch-logs-trust-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.firehose-key-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.firehose-role-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.firehose-trust-policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
-| Name                                                                                                                  | Description                                                                                                                                                           | Type           | Default          | Required |
-| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------- | :------: |
-| <a name="input_cloudwatch_filter_pattern"></a> [cloudwatch_filter_pattern](#input_cloudwatch_filter_pattern)          | A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events.                                                                            | `string`       | `""`             |    no    |
-| <a name="input_cloudwatch_log_group_names"></a> [cloudwatch_log_group_names](#input_cloudwatch_log_group_names)       | List of CloudWatch Log Group names to stream logs from.                                                                                                               | `list(string)` | n/a              |   yes    |
-| <a name="input_destination_bucket_arn"></a> [destination_bucket_arn](#input_destination_bucket_arn)                   | ARN of the bucket for CloudWatch filters.                                                                                                                             | `string`       | `""`             |    no    |
-| <a name="input_destination_http_endpoint"></a> [destination_http_endpoint](#input_destination_http_endpoint)          | HTTP endpoint for CloudWatch filters.                                                                                                                                 | `string`       | `""`             |    no    |
-| <a name="input_destination_http_secret_name"></a> [destination_http_secret_name](#input_destination_http_secret_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html | `string`       | `null`           |    no    |
-| <a name="input_name"></a> [name](#input_name)                                                                         | Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog'                                                | `string`       | `null`           |    no    |
-| <a name="input_s3_compression_format"></a> [s3_compression_format](#input_s3_compression_format)                      | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default.                                                 | `string`       | `"UNCOMPRESSED"` |    no    |
-| <a name="input_tags"></a> [tags](#input_tags)                                                                         | Map of tags to be applied to resources.                                                                                                                               | `map(string)`  | n/a              |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_cloudwatch_filter_pattern"></a> [cloudwatch\_filter\_pattern](#input\_cloudwatch\_filter\_pattern) | A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events. | `string` | `""` | no |
+| <a name="input_cloudwatch_log_group_names"></a> [cloudwatch\_log\_group\_names](#input\_cloudwatch\_log\_group\_names) | List of CloudWatch Log Group names to stream logs from. | `list(string)` | n/a | yes |
+| <a name="input_destination_bucket_arn"></a> [destination\_bucket\_arn](#input\_destination\_bucket\_arn) | ARN of the bucket for CloudWatch filters. | `string` | `""` | no |
+| <a name="input_destination_http_endpoint"></a> [destination\_http\_endpoint](#input\_destination\_http\_endpoint) | HTTP endpoint for CloudWatch filters. | `string` | `""` | no |
+| <a name="input_destination_http_secret_name"></a> [destination\_http\_secret\_name](#input\_destination\_http\_secret\_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog' | `string` | `null` | no |
+| <a name="input_s3_compression_format"></a> [s3\_compression\_format](#input\_s3\_compression\_format) | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default. | `string` | `"UNCOMPRESSED"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to be applied to resources. | `map(string)` | n/a | yes |
 
 ## Outputs
 
-| Name                                                                                                                                                     | Description |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| <a name="output_cloudwatch_log_group_name"></a> [cloudwatch_log_group_name](#output_cloudwatch_log_group_name)                                           | n/a         |
-| <a name="output_data_stream"></a> [data_stream](#output_data_stream)                                                                                     | n/a         |
-| <a name="output_firehose_server_side_encryption_key_arn"></a> [firehose_server_side_encryption_key_arn](#output_firehose_server_side_encryption_key_arn) | n/a         |
-| <a name="output_iam_roles"></a> [iam_roles](#output_iam_roles)                                                                                           | n/a         |
-| <a name="output_kms_key_arn"></a> [kms_key_arn](#output_kms_key_arn)                                                                                     | n/a         |
-| <a name="output_log_subscriptions"></a> [log_subscriptions](#output_log_subscriptions)                                                                   | n/a         |
-| <a name="output_secretsmanager_secret_arn"></a> [secretsmanager_secret_arn](#output_secretsmanager_secret_arn)                                           | n/a         |
-
+| Name | Description |
+|------|-------------|
+| <a name="output_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#output\_cloudwatch\_log\_group\_name) | n/a |
+| <a name="output_data_stream"></a> [data\_stream](#output\_data\_stream) | n/a |
+| <a name="output_firehose_server_side_encryption_key_arn"></a> [firehose\_server\_side\_encryption\_key\_arn](#output\_firehose\_server\_side\_encryption\_key\_arn) | n/a |
+| <a name="output_iam_roles"></a> [iam\_roles](#output\_iam\_roles) | n/a |
+| <a name="output_kms_key_arn"></a> [kms\_key\_arn](#output\_kms\_key\_arn) | n/a |
+| <a name="output_log_subscriptions"></a> [log\_subscriptions](#output\_log\_subscriptions) | n/a |
+| <a name="output_secretsmanager_secret_arn"></a> [secretsmanager\_secret\_arn](#output\_secretsmanager\_secret\_arn) | n/a |
 <!-- END_TF_DOCS -->
 
 [Standards Link]: https://github-community.service.justice.gov.uk/repository-standards/modernisation-platform-terraform-aws-data-firehose "Repo standards badge."
