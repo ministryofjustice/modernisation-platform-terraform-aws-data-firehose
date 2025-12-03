@@ -96,7 +96,7 @@ No modules.
 | <a name="input_destination_bucket_arn"></a> [destination\_bucket\_arn](#input\_destination\_bucket\_arn) | ARN of the bucket for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_endpoint"></a> [destination\_http\_endpoint](#input\_destination\_http\_endpoint) | HTTP endpoint for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_secret_name"></a> [destination\_http\_secret\_name](#input\_destination\_http\_secret\_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Optionally provide a unique name to help identify resources when multiple instances of the module are created, e.g. 'syslog' | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog' | `string` | `null` | no |
 | <a name="input_s3_compression_format"></a> [s3\_compression\_format](#input\_s3\_compression\_format) | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default. | `string` | `"UNCOMPRESSED"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to be applied to resources. | `map(string)` | n/a | yes |
 
