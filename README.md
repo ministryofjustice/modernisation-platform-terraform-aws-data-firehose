@@ -1,4 +1,4 @@
-# Modernisation Platform Terraform Module Template
+# Modernisation Platform Terraform AWS Data Firehose Module
 
 [![Standards Icon]][Standards Link] [![Format Code Icon]][Format Code Link] [![Scorecards Icon]][Scorecards Link] [![SCA Icon]][SCA Link] [![Terraform SCA Icon]][Terraform SCA Link]
 
@@ -28,7 +28,7 @@ module "example-http" {
 This module creates an [AWS Data Stream](https://aws.amazon.com/kinesis/data-streams/) to be used by a set of AWS CloudWatch Log Groups.
 Data is streamed from the Log Groups to either a target S3 bucket or HTTP endpoint using a Cloudwatch Log Subscription Filter.
 
-When a HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10 minute intervals for credentials.
+When an HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10-minute intervals for credentials.
 
 The `aws_secretsmanager_secret` **value** must be populated independently of this module.
 See [AWS Firehose Secrets](https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html) for details of the format.
@@ -96,7 +96,7 @@ No modules.
 | <a name="input_destination_bucket_arn"></a> [destination\_bucket\_arn](#input\_destination\_bucket\_arn) | ARN of the bucket for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_endpoint"></a> [destination\_http\_endpoint](#input\_destination\_http\_endpoint) | HTTP endpoint for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_secret_name"></a> [destination\_http\_secret\_name](#input\_destination\_http\_secret\_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog' | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | Optionally provide a unique name to help identify resources when multiple instances of the module are created, e.g. 'syslog' | `string` | `null` | no |
 | <a name="input_s3_compression_format"></a> [s3\_compression\_format](#input\_s3\_compression\_format) | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default. | `string` | `"UNCOMPRESSED"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to be applied to resources. | `map(string)` | n/a | yes |
 
