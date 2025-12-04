@@ -1,4 +1,4 @@
-# Modernisation Platform Terraform Module Template
+# Modernisation Platform Terraform AWS Data Firehose Module
 
 [![Standards Icon]][Standards Link] [![Format Code Icon]][Format Code Link] [![Scorecards Icon]][Scorecards Link] [![SCA Icon]][SCA Link] [![Terraform SCA Icon]][Terraform SCA Link]
 
@@ -28,7 +28,7 @@ module "example-http" {
 This module creates an [AWS Data Stream](https://aws.amazon.com/kinesis/data-streams/) to be used by a set of AWS CloudWatch Log Groups.
 Data is streamed from the Log Groups to either a target S3 bucket or HTTP endpoint using a Cloudwatch Log Subscription Filter.
 
-When a HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10 minute intervals for credentials.
+When an HTTP endpoint is specified, an `aws_secretsmanager_secret` resource is created that is polled at 10-minute intervals for credentials.
 
 The `aws_secretsmanager_secret` **value** must be populated independently of this module.
 See [AWS Firehose Secrets](https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html) for details of the format.
@@ -36,6 +36,7 @@ See [AWS Firehose Secrets](https://docs.aws.amazon.com/firehose/latest/dev/secre
 Included in this module are the necessary IAM policy documents and roles for these actions, as well as a KMS key to encrypt the Data Stream.
 
 ## Looking for issues?
+
 If you're looking to raise an issue with this module, please create a new issue in the [Modernisation Platform repository](https://github.com/ministryofjustice/modernisation-platform/issues).
 
 <!-- BEGIN_TF_DOCS -->
