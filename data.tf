@@ -34,6 +34,16 @@ data "aws_iam_policy_document" "cloudwatch-logs-role-policy" {
       aws_kinesis_firehose_delivery_stream.firehose.arn
     ]
   }
+
+  statement {
+    sid    = "UseFirehoseKMSKey"
+    effect = "Allow"
+    actions = [
+      "kms:GenerateDataKey",
+      "kms:Decrypt"
+    ]
+    resources = [aws_kms_key.firehose.arn]
+  }
 }
 
 data "aws_iam_policy_document" "firehose-trust-policy" {
