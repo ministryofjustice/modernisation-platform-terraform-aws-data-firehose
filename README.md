@@ -43,7 +43,7 @@ If you're looking to raise an issue with this module, please create a new issue 
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ------ | --------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.4 |
@@ -62,7 +62,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ------ | ------ |
 | [aws_cloudwatch_log_group.kinesis](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_cloudwatch_log_subscription_filter.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_subscription_filter) | resource |
 | [aws_iam_policy.cloudwatch-to-firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -91,12 +91,12 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ------ | ------------- | ------ | --------- | :--------: |
 | <a name="input_cloudwatch_filter_pattern"></a> [cloudwatch\_filter\_pattern](#input\_cloudwatch\_filter\_pattern) | A valid CloudWatch Logs filter pattern for subscribing to a filtered stream of log events. | `string` | `""` | no |
 | <a name="input_cloudwatch_log_group_names"></a> [cloudwatch\_log\_group\_names](#input\_cloudwatch\_log\_group\_names) | List of CloudWatch Log Group names to stream logs from. | `list(string)` | n/a | yes |
 | <a name="input_destination_bucket_arn"></a> [destination\_bucket\_arn](#input\_destination\_bucket\_arn) | ARN of the bucket for CloudWatch filters. | `string` | `""` | no |
 | <a name="input_destination_http_endpoint"></a> [destination\_http\_endpoint](#input\_destination\_http\_endpoint) | HTTP endpoint for CloudWatch filters. | `string` | `""` | no |
-| <a name="input_destination_http_secret_name"></a> [destination\_http\_secret\_name](#input\_destination\_http\_secret\_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html | `string` | `null` | no |
+| <a name="input_destination_http_secret_name"></a> [destination\_http\_secret\_name](#input\_destination\_http\_secret\_name) | Name of secret to create for http endpoint. Set the value outside of terraform, see <https://docs.aws.amazon.com/firehose/latest/dev/secrets-manager-whats-secret.html> | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | Optionally provide unique name to help identify resources when multiple instances of module are created, e.g. 'syslog' | `string` | `null` | no |
 | <a name="input_s3_compression_format"></a> [s3\_compression\_format](#input\_s3\_compression\_format) | Allow optional configuration of AWS Data Stream compression. Log Group subscription filters compress logs by default. | `string` | `"UNCOMPRESSED"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to be applied to resources. | `map(string)` | n/a | yes |
@@ -104,7 +104,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ------ | ------------- |
 | <a name="output_cloudwatch_log_group_name"></a> [cloudwatch\_log\_group\_name](#output\_cloudwatch\_log\_group\_name) | n/a |
 | <a name="output_data_stream"></a> [data\_stream](#output\_data\_stream) | n/a |
 | <a name="output_firehose_server_side_encryption_key_arn"></a> [firehose\_server\_side\_encryption\_key\_arn](#output\_firehose\_server\_side\_encryption\_key\_arn) | n/a |
